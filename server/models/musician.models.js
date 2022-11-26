@@ -39,13 +39,6 @@ const MusicianSchema = new mongoose.Schema(
 			required: [true, "Please select a state from the dropdown."],
 		},
 
-		zip: {
-			type: String,
-			required: [true, "Please enter your zip code."],
-			minlength: [5, "Invalid zip code."],
-			maxlength: [10, "Invalid zip code."],
-		},
-
 		bio: {
 			type: String,
 			required: [true, "Bio is required."],
@@ -53,7 +46,7 @@ const MusicianSchema = new mongoose.Schema(
 		},
 
 		instrument: {
-			type: String,
+			type: Array,
 			required: [true, "Primary Instrument is required."],
 		},
 

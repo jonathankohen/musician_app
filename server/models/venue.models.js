@@ -1,6 +1,13 @@
 const mongoose = require("mongoose"),
 	bcrypt = require("bcrypt");
 
+// Capacity
+// Contracting
+// Connect website to acct
+// Calendar system for venues
+
+// Uploading
+
 const VenueSchema = new mongoose.Schema(
 	{
 		name: {

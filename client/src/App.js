@@ -1,22 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import * as React from "react";
+import { Routes, Route } from "react-router-dom";
+
+// Pages
+import Reg from "./pages/Reg";
+import Login from "./pages/Login";
+import Dashboard from "./pages/Dashboard";
+
+// Components
+import Navbar from "./components/layout/Navbar/Navbar";
+import Container from "./components/layout/Container/Container.jsx";
 
 function App() {
 	return (
 		<div className="App">
-			<Router>
-				{/* <Navbar /> */}
-				<Switch>
-					<Route exact path="/">
-						<Reg />
-					</Route>
-					<Route path="/login">
-						<Login />
-					</Route>
-					<Route path="/musicians">
-						<Main />
-					</Route>
+			<Navbar />
+			<Container>
+				<Routes>
+					<Route path="/" element={<Reg />} />
+					<Route path="/login" element={<Login />} />
+					<Route path="/dashboard" element={<Dashboard />} />
+
+					{/* Using path="*"" means "match anything", so this route
+                acts like a catch-all for URLs that we don't have explicit
+                routes for. */}
+					{/* <Route path="*" element={<NoMatch />} /> */}
+
 					{/* <Route path="/about">
 						<About />
 					</Route>
@@ -26,9 +34,9 @@ function App() {
 					<Route path="/edit/:id">
 						<Edit user={user} />
 					</Route> */}
-				</Switch>
-				<Footer />
-			</Router>
+					{/* <Footer /> */}
+				</Routes>
+			</Container>
 		</div>
 	);
 }

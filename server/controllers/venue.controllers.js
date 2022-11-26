@@ -1,13 +1,19 @@
-const { Venue } = require('../models/venue.models');
+const { Venue } = require("../models/venue.models"),
+	bcrypt = require("bcrypt"),
+	jwt = require("jsonwebtoken");
 
 module.exports = {
 	register: (req, res) => {
 		Venue.create(req.body)
 			.then((venue) => {
-				res.cookie('user_token', jwt.sign({ _id: venue._id }, process.env.SECRET_KEY), {
-					httpOnly: true,
-				}).json({
-					msg: 'Success!',
+				res.cookie(
+					"user_token",
+					jwt.sign({ _id: venue._id }, process.env.SECRET_KEY),
+					{
+						httpOnly: true,
+					},
+				).json({
+					msg: "Success!",
 					venue: {
 						name: venue.name,
 						email: venue.email,
@@ -26,17 +32,24 @@ module.exports = {
 		Venue.findOne({ email: req.body.email })
 			.then((venue) => {
 				if (venue == null) {
-					res.status(400).json({ msg: 'Invalid login attempt.' });
+					res.status(400).json({ msg: "Invalid login attempt." });
 					res.cookie();
 				} else {
 					bcrypt
 						.compare(req.body.password, user.password)
 						.then((isValid) => {
 							if (isValid === true) {
-								res.cookie('user_token', jwt.sign({ _id: venue._id }, process.env.SECRET_KEY), {
-									httpOnly: true,
-								}).json({
-									msg: 'success!',
+								res.cookie(
+									"user_token",
+									jwt.sign(
+										{ _id: venue._id },
+										process.env.SECRET_KEY,
+									),
+									{
+										httpOnly: true,
+									},
+								).json({
+									msg: "success!",
 									venue: {
 										id: venue._id,
 										name: venue.name,
@@ -50,14 +63,14 @@ module.exports = {
 								});
 							} else {
 								res.status(400).json({
-									msg: 'Invalid login attempt!',
+									msg: "Invalid login attempt!",
 								});
 							}
 						})
 						.catch((err) => {
 							console.log(err);
 							res.status(400).json({
-								msg: 'Invalid login attempt!',
+								msg: "Invalid login attempt!",
 							});
 						});
 				}
@@ -66,14 +79,8 @@ module.exports = {
 	},
 
 	logout: (req, res) => {
-		res.clearCookie('user_token');
+		res.clearCookie("user_token");
 		res.sendStatus(200);
-	},
-
-	get_all: (req, res) => {
-		Venue.find()
-			.then((data) => res.json({ results: data }))
-			.catch((err) => res.json(err.errors));
 	},
 
 	create: (req, res) => {
@@ -82,7 +89,13 @@ module.exports = {
 			.catch((err) => console.log(err));
 	},
 
-	show: (req, res) => {
+	get_all: (req, res) => {
+		Venue.find()
+			.then((data) => res.json({ results: data }))
+			.catch((err) => res.json(err.errors));
+	},
+
+	show_one: (req, res) => {
 		Venue.findOne({ _id: req.params.id })
 			.then((data) => res.json({ results: data }))
 			.catch((err) => res.json(err.errors));
