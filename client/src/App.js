@@ -2,13 +2,15 @@ import * as React from "react";
 import { Routes, Route } from "react-router-dom";
 
 // Pages
+import LandingPage from "./pages/LandingPage";
 import Reg from "./pages/Reg";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 
 // Components
-import Navbar from "./components/layout/Navbar/Navbar";
-import Container from "./components/layout/Container/Container.jsx";
+import Navbar from "./components/layout/Navbar";
+import Container from "./components/layout/Container/Container";
+import NoMatch from "./components/NoMatch";
 
 function App() {
 	return (
@@ -16,25 +18,32 @@ function App() {
 			<Navbar />
 			<Container>
 				<Routes>
-					<Route path="/" element={<Reg />} />
-					<Route path="/login" element={<Login />} />
-					<Route path="/dashboard" element={<Dashboard />} />
-
-					{/* Using path="*"" means "match anything", so this route
-                acts like a catch-all for URLs that we don't have explicit
-                routes for. */}
-					{/* <Route path="*" element={<NoMatch />} /> */}
-
-					{/* <Route path="/about">
-						<About />
-					</Route>
-					<Route path="/user/:id">
-						<Show />
-					</Route>
-					<Route path="/edit/:id">
-						<Edit user={user} />
-					</Route> */}
-					{/* <Footer /> */}
+					<Route path="/" element={<LandingPage />} />
+					<Route
+						path="musicians/register"
+						element={<Reg user_type="musician" />}
+					/>
+					<Route
+						path="musicians/login"
+						element={<Login user_type="musician" />}
+					/>
+					<Route
+						path="musicians/dashboard"
+						element={<Dashboard user_type="musician" />}
+					/>
+					<Route
+						path="venues/register"
+						element={<Reg user_type="venue" />}
+					/>
+					<Route
+						path="venues/login"
+						element={<Login user_type="venue" />}
+					/>
+					<Route
+						path="venues/dashboard"
+						element={<Dashboard user_type="venue" />}
+					/>
+					<Route path="*" element={<NoMatch />} />
 				</Routes>
 			</Container>
 		</div>
