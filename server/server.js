@@ -12,5 +12,6 @@ app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-require("./server/config/database.config");
-require("./server/routes/user.routes")(app);
+require("./config/database.config");
+require("./routes/musician.routes")(app);
+require("./routes/venue.routes")(app);

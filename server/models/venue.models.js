@@ -5,7 +5,7 @@ const VenueSchema = new mongoose.Schema(
 	{
 		name: {
 			type: String,
-			required: [true, "First name is required."],
+			required: [true, "Venue name is required."],
 			trim: true,
 		},
 

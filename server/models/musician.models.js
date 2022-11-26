@@ -66,7 +66,7 @@ const MusicianSchema = new mongoose.Schema(
 
 		dislikes: [],
 
-		likedBy: [],
+		liked_by: [],
 
 		matches: [],
 	},

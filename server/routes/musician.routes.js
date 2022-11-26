@@ -2,11 +2,12 @@ const MusicianController = require("../controllers/musician.controllers"),
 	{ authenticate } = require("../config/jwt.config");
 
 module.exports = (app) => {
-	app.post("/musician/register/", LoginRegController.register);
-	app.post("/musician/login", LoginRegController.login);
-	app.get("/musician/logout", authenticate, LoginRegController.logout);
+	app.post("/musicians/register/", MusicianController.register);
+	app.post("/musicians/login", MusicianController.login);
+	app.get("/musicians/logout", authenticate, MusicianController.logout);
 
-	app.get("/musician/all", authenticate, MusicianController.get_all);
-	app.get("/musician/:id", authenticate, MusicianController.show);
-	app.put("/musician/update/:id", authenticate, MusicianController.update);
+	app.get("/musicians/all", authenticate, MusicianController.get_all);
+	app.get("/musicians/:id", authenticate, MusicianController.show);
+	app.put("/musicians/update/:id", authenticate, MusicianController.update);
+	app.put("/musicians/destroy/:id", authenticate, MusicianController.update);
 };
