@@ -1,17 +1,15 @@
-const { Musician } = require("../models/musician.models");
+const { Musician } = require('../models/musician.models'),
+	bcrypt = require('bcrypt'),
+	jwt = require('jsonwebtoken');
 
 module.exports = {
 	register: (req, res) => {
 		Musician.create(req.body)
 			.then((musician) => {
-				res.cookie(
-					"user_token",
-					jwt.sign({ _id: musician._id }, process.env.SECRET_KEY),
-					{
-						httpOnly: true,
-					},
-				).json({
-					msg: "success!",
+				res.cookie('user_token', jwt.sign({ _id: musician._id }, process.env.SECRET_KEY), {
+					httpOnly: true,
+				}).json({
+					msg: 'Success!',
 					musician: {
 						first_name: musician.first_name,
 						last_name: musician.last_name,
@@ -37,24 +35,17 @@ module.exports = {
 		Musician.findOne({ email: req.body.email })
 			.then((musician) => {
 				if (musician == null) {
-					res.status(400).json({ msg: "Invalid login attempt!" });
+					res.status(400).json({ msg: 'Invalid login attempt.' });
 					res.cookie();
 				} else {
 					bcrypt
 						.compare(req.body.password, user.password)
 						.then((isValid) => {
 							if (isValid === true) {
-								res.cookie(
-									"user_token",
-									jwt.sign(
-										{ _id: musician._id },
-										process.env.SECRET_KEY,
-									),
-									{
-										httpOnly: true,
-									},
-								).json({
-									msg: "success!",
+								res.cookie('user_token', jwt.sign({ _id: musician._id }, process.env.SECRET_KEY), {
+									httpOnly: true,
+								}).json({
+									msg: 'success!',
 									musician: {
 										id: musician._id,
 										first_name: musician.first_name,
@@ -75,14 +66,14 @@ module.exports = {
 								});
 							} else {
 								res.status(400).json({
-									msg: "Invalid login attempt!",
+									msg: 'Invalid login attempt!',
 								});
 							}
 						})
 						.catch((err) => {
 							console.log(err);
 							res.status(400).json({
-								msg: "Invalid login attempt!",
+								msg: 'Invalid login attempt!',
 							});
 						});
 				}
@@ -91,7 +82,7 @@ module.exports = {
 	},
 
 	logout: (req, res) => {
-		res.clearCookie("user_token");
+		res.clearCookie('user_token');
 		res.sendStatus(200);
 	},
 
@@ -107,7 +98,7 @@ module.exports = {
 			.catch((err) => console.log(err.errors));
 	},
 
-	show: (req, res) => {
+	show_one: (req, res) => {
 		Musician.findOne({ _id: req.params.id })
 			.then((data) => res.json({ results: data }))
 			.catch((err) => res.json(err.errors));
