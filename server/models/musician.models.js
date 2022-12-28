@@ -39,6 +39,13 @@ const MusicianSchema = new mongoose.Schema(
 			required: [true, "Please select a state from the dropdown."],
 		},
 
+		zip: {
+			type: String,
+			required: [true, "Please enter your zip code."],
+			minlength: [5, "Invalid zip code."],
+			maxlength: [10, "Invalid zip code."],
+		},
+
 		bio: {
 			type: String,
 			required: [true, "Bio is required."],
@@ -62,6 +69,7 @@ const MusicianSchema = new mongoose.Schema(
 
 		matches: [],
 	},
+
 	{ timestamps: true },
 );
 
@@ -71,10 +79,7 @@ MusicianSchema.virtual("confirmPassword")
 
 MusicianSchema.pre("validate", function (next) {
 	if (this.password !== this.confirmPassword) {
-		this.invalidate(
-			"confirmPassword",
-			"Password must match confirm password",
-		);
+		this.invalidate("confirmPassword", "Passwords must match.");
 	}
 	next();
 });
