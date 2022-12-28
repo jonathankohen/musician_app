@@ -4,22 +4,22 @@ import React from "react";
 import Form from "../components/Form";
 
 const initial_musician = {
-	first_name: "",
-	last_name: "",
+	firstName: "",
+	lastName: "",
 	email: "",
 	password: "",
-	confirm_password: "",
+	confirmPassword: "",
 	city: "",
 	state: "",
 	bio: "",
 	genre: "",
 	instruments: [],
-	streaming_link: "",
+	streamingLink: "",
 	website: "",
 };
 
 export default function MusicianReg({
-	user_type,
+	userType,
 	errors,
 	setErrors,
 	handleInputChange,

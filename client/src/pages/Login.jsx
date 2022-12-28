@@ -1,7 +1,7 @@
 import React from "react";
 
-// Components
-import Form from "../components/Form";
+// Routing
+import { Link } from "react-router-dom";
 
 export default function Login() {
 	return (
@@ -10,7 +10,9 @@ export default function Login() {
 				<h1>Sign-In</h1>
 			</header>
 
-			<Form />
+			<p>
+				<Link to="musician_or_venue">Create account?</Link>
+			</p>
 		</>
 	);
 }

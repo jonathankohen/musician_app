@@ -3,13 +3,13 @@ const mongoose = require("mongoose"),
 
 const MusicianSchema = new mongoose.Schema(
 	{
-		first_name: {
+		firstName: {
 			type: String,
 			required: [true, "First name is required."],
 			trim: true,
 		},
 
-		last_name: {
+		lastName: {
 			type: String,
 			required: [true, "Last name is required."],
 		},
@@ -50,16 +50,15 @@ const MusicianSchema = new mongoose.Schema(
 			required: [true, "Primary Instrument is required."],
 		},
 
-		streaming_link: {
+		streamingLink: {
 			type: String,
-			default: "",
 		},
 
 		likes: [],
 
 		dislikes: [],
 
-		liked_by: [],
+		likedBy: [],
 
 		matches: [],
 	},

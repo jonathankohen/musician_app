@@ -31,12 +31,12 @@ const VenueSchema = new mongoose.Schema(
 			minlength: [8, "Password must be eight characters or longer."],
 		},
 
-		address_line_1: {
+		addressLineOne: {
 			type: String,
 			required: [true, "Address line 1 required."],
 		},
 
-		address_line_2: {
+		addressLineTwo: {
 			type: String,
 		},
 

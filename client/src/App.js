@@ -1,16 +1,16 @@
 import * as React from "react";
 import { Routes, Route } from "react-router-dom";
 
-// Pages
-import LandingPage from "./pages/LandingPage";
+// App Pages
 import Reg from "./pages/Reg";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
+import MusicianOrVenue from "./pages/MusicianOrVenue";
 
-// Components
+// App Components
 import Navbar from "./components/layout/Navbar/Navbar";
 import Container from "./components/layout/Container/Container";
-import NoMatch from "./components/NoMatch";
+import NoMatch from "./components/utils/NoMatch/NoMatch";
 
 function App() {
 	return (
@@ -20,28 +20,32 @@ function App() {
 				<Routes>
 					<Route path="/" element={<Login />} />
 					<Route
+						path="musician_or_venue"
+						element={<MusicianOrVenue />}
+					/>
+					<Route
 						path="musicians/register"
-						element={<Reg user_type="musician" />}
+						element={<Reg userType="musician" />}
 					/>
 					<Route
 						path="musicians/login"
-						element={<Login user_type="musician" />}
+						element={<Login userType="musician" />}
 					/>
 					<Route
 						path="musicians/dashboard"
-						element={<Dashboard user_type="musician" />}
+						element={<Dashboard userType="musician" />}
 					/>
 					<Route
 						path="venues/register"
-						element={<Reg user_type="venue" />}
+						element={<Reg userType="venue" />}
 					/>
 					<Route
 						path="venues/login"
-						element={<Login user_type="venue" />}
+						element={<Login userType="venue" />}
 					/>
 					<Route
 						path="venues/dashboard"
-						element={<Dashboard user_type="venue" />}
+						element={<Dashboard userType="venue" />}
 					/>
 					<Route path="*" element={<NoMatch />} />
 				</Routes>

@@ -15,8 +15,8 @@ module.exports = {
 				).json({
 					msg: "Success!",
 					musician: {
-						first_name: musician.first_name,
-						last_name: musician.last_name,
+						firstName: musician.firstName,
+						lastName: musician.lastName,
 						email: musician.email,
 						password: musician.password,
 						city: musician.city,
@@ -24,10 +24,10 @@ module.exports = {
 						zip: musician.zip,
 						bio: musician.bio,
 						instrument: musician.instrument,
-						streaming_link: musician.streaming_link,
+						streamingLink: musician.streamingLink,
 						likes: musician.likes,
 						dislikes: musician.dislikes,
-						liked_by: musician.liked_by,
+						likedBy: musician.likedBy,
 						matches: musician.matches,
 					},
 				});
@@ -36,6 +36,7 @@ module.exports = {
 	},
 
 	login: (req, res) => {
+		console.log(req.body.email);
 		Musician.findOne({ email: req.body.email })
 			.then((musician) => {
 				if (musician == null) {
@@ -43,7 +44,7 @@ module.exports = {
 					res.cookie();
 				} else {
 					bcrypt
-						.compare(req.body.password, user.password)
+						.compare(req.body.password, musician.password)
 						.then((isValid) => {
 							if (isValid === true) {
 								res.cookie(
@@ -56,11 +57,11 @@ module.exports = {
 										httpOnly: true,
 									},
 								).json({
-									msg: "success!",
+									msg: "Success! Logged in with the following musician:",
 									musician: {
 										id: musician._id,
-										first_name: musician.first_name,
-										last_name: musician.last_name,
+										firstName: musician.firstName,
+										lastName: musician.lastName,
 										email: musician.email,
 										password: musician.password,
 										city: musician.city,
@@ -68,10 +69,10 @@ module.exports = {
 										zip: musician.zip,
 										bio: musician.bio,
 										instrument: musician.instrument,
-										streaming_link: musician.streaming_link,
+										streamingLink: musician.streamingLink,
 										likes: musician.likes,
 										dislikes: musician.dislikes,
-										liked_by: musician.liked_by,
+										likedBy: musician.likedBy,
 										matches: musician.matches,
 									},
 								});
@@ -106,7 +107,10 @@ module.exports = {
 	get_all: (req, res) => {
 		Musician.find()
 			.then((data) => res.json({ results: data }))
-			.catch((err) => res.json(err.errors));
+			.catch((err) => {
+				res.json(err.errors);
+				console.log(err);
+			});
 	},
 
 	show_one: (req, res) => {

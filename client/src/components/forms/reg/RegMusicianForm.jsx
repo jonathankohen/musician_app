@@ -6,17 +6,17 @@ import BSForm from "react-bootstrap/Form";
 
 // Variables
 const initial_musician = {
-	first_name: "",
-	last_name: "",
+	firstName: "",
+	lastName: "",
 	email: "",
 	password: "",
-	confirm_password: "",
+	confirmPassword: "",
 	city: "",
 	state: "",
 	bio: "",
 	genre: "",
 	instruments: [],
-	streaming_link: "",
+	streamingLink: "",
 	website: "",
 };
 
@@ -35,7 +35,7 @@ export default function RegMusicianForm() {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		axios
-			.post(`http://localhost:8000/api/${user_type}s/register`, reg, {
+			.post(`http://localhost:8000/api/${userType}s/register`, reg, {
 				withCredentials: true,
 			})
 			.then((res) => console.log(res))
@@ -44,12 +44,12 @@ export default function RegMusicianForm() {
 
 	return (
 		<BSForm>
-			<BSForm.Group className="mb-3" controlId="first_name">
+			<BSForm.Group className="mb-3" controlId="firstName">
 				<BSForm.Label>First name</BSForm.Label>
 				<BSForm.Control type="text" placeholder="First name" />
 			</BSForm.Group>
 
-			<BSForm.Group className="mb-3" controlId="last_name">
+			<BSForm.Group className="mb-3" controlId="lastName">
 				<BSForm.Label>Last name</BSForm.Label>
 				<BSForm.Control type="text" placeholder="Last name" />
 			</BSForm.Group>

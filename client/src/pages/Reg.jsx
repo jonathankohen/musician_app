@@ -1,32 +1,38 @@
 import React, { useState } from "react";
+
+// Routing
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-// Components
-import Form from "../components/Form";
+// App Components
+import RegForm from "../components/forms/reg/RegForm/RegForm";
 
-const initial_musician = {
-	first_name: "",
-	last_name: "",
+const initialMusician = {
+	firstName: "",
+	lastName: "",
 	email: "",
 	password: "",
-	confirm_password: "",
+	confirmPassword: "",
 	city: "",
 	state: "",
 	bio: "",
 	genre: "",
 	instruments: [],
-	streaming_link: "",
+	streamingLink: "",
 	website: "",
+	likes: [],
+	dislikes: [],
+	likedBy: [],
+	matches: [],
 };
 
-const initial_venue = {
+const initialVenue = {
 	name: "",
 	email: "",
 	password: "",
-	confirm_password: "",
-	address_line_1: "",
-	address_line_2: "",
+	confirmPassword: "",
+	addressLineOne: "",
+	addressLineTwo: "",
 	city: "",
 	state: "",
 	bio: "",
@@ -35,14 +41,24 @@ const initial_venue = {
 	website: "",
 };
 
-export default function Reg({ user_type }) {
-	const [reg, setReg] = useState(
-		user_type === "musician" ? initial_musician : initial_venue,
-	);
+export default function Reg({ userType }) {
+	const getInitial = () => {
+		if (userType === "musician") {
+			return initialMusician;
+		} else if (userType === "venue") {
+			return initialVenue;
+		} else {
+			return false;
+		}
+	};
 
-	const [errors, setErrors] = useState(
-		user_type === "musician" ? initial_musician : initial_venue,
-	);
+	const [reg, setReg] = useState(getInitial(userType));
+	const [errors, setErrors] = useState(getInitial(userType));
+	const navigate = useNavigate();
+
+	const goToDash = (uType) => {
+		navigate(`/${uType}s/dashboard`);
+	};
 
 	const handleInputChange = (e) => {
 		setReg({
@@ -52,22 +68,35 @@ export default function Reg({ user_type }) {
 	};
 
 	const handleSubmit = (e) => {
+		setErrors(getInitial());
 		e.preventDefault();
+
 		axios
-			.post(`http://localhost:8000/api/${user_type}s/register`, reg, {
+			.post(`http://localhost:8000/api/${userType}s/register`, reg, {
 				withCredentials: true,
 			})
-			.then((res) => console.log(res))
+			.then((res) => {
+				if (res.data.musician) {
+					goToDash(userType);
+				} else {
+					setErrors(res.data);
+				}
+			})
 			.catch((err) => console.log(err));
 	};
 
 	return (
 		<>
 			<header>
-				<h1>Are you a musician, or venue?</h1>
-				<Link to="/musicians/register">Musician</Link>{" "}
-				<Link to="/venues/register">Venue</Link>
+				<h1>Sign Up</h1>
 			</header>
+
+			<RegForm
+				userType={userType}
+				handleInputChange={handleInputChange}
+				handleSubmit={handleSubmit}
+				errors={errors}
+			/>
 		</>
 	);
 }
