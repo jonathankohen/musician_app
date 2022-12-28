@@ -15,6 +15,7 @@ const initialMusician = {
 	confirmPassword: "",
 	city: "",
 	state: "",
+	zip: "",
 	bio: "",
 	genre: "",
 	instruments: [],
@@ -61,9 +62,15 @@ export default function Reg({ userType }) {
 	};
 
 	const handleInputChange = (e) => {
+		const onlyNums = e.target.value.filter(
+			(char) => typeof char === "number",
+		);
+
+		const currVal = e.target.name === "zip" ? onlyNums : false;
+
 		setReg({
 			...reg,
-			[e.target.name]: e.target.value,
+			[e.target.name]: currVal,
 		});
 	};
 
@@ -96,6 +103,7 @@ export default function Reg({ userType }) {
 				handleInputChange={handleInputChange}
 				handleSubmit={handleSubmit}
 				errors={errors}
+				reg={reg}
 			/>
 		</>
 	);

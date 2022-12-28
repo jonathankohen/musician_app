@@ -7,14 +7,18 @@ import BSForm from "react-bootstrap/Form";
 // App Components
 import FormError from "../../FormError";
 
+// Utils
+import usStates from "../../../utils/usStates.json";
+
 export default function RegForm({
 	userType,
 	handleInputChange,
 	handleSubmit,
 	errors,
+	reg,
 }) {
 	return (
-		<BSForm onSubmit={handleSubmit}>
+		<BSForm onSubmit={handleSubmit} className="my-5">
 			{userType === "venue" ? (
 				<>
 					<BSForm.Group className="mb-3" controlId="name">
@@ -129,22 +133,28 @@ export default function RegForm({
 
 			<BSForm.Group className="mb-3" controlId="state">
 				<BSForm.Label>State</BSForm.Label>
-				<BSForm.Control
-					type="text"
-					name="state"
-					placeholder="State"
-					onChange={handleInputChange}
-				/>
+
+				<BSForm.Select aria-label="Please select a state">
+					<option>Please select a state</option>
+					{usStates.map((state) => {
+						return (
+							<option value={state["abbreviation"]}>
+								{state["name"]}
+							</option>
+						);
+					})}
+				</BSForm.Select>
 				<FormError errors={errors} varName="state" />
 			</BSForm.Group>
 
 			<BSForm.Group className="mb-3" controlId="zip">
 				<BSForm.Label>Zip Code</BSForm.Label>
 				<BSForm.Control
-					type="number"
+					type="text"
 					name="zip"
 					placeholder="Zip Code"
 					onChange={handleInputChange}
+					maxLength="5"
 				/>
 				<FormError errors={errors} varName="zip" />
 			</BSForm.Group>
