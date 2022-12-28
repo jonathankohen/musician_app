@@ -12,6 +12,7 @@ const MusicianSchema = new mongoose.Schema(
 		lastName: {
 			type: String,
 			required: [true, "Last name is required."],
+			trim: true,
 		},
 
 		email: {
@@ -32,6 +33,7 @@ const MusicianSchema = new mongoose.Schema(
 		city: {
 			type: String,
 			required: [true, "City is required."],
+			trim: true,
 		},
 
 		state: {
@@ -43,7 +45,6 @@ const MusicianSchema = new mongoose.Schema(
 			type: String,
 			required: [true, "Please enter your zip code."],
 			minlength: [5, "Invalid zip code."],
-			maxlength: [10, "Invalid zip code."],
 		},
 
 		bio: {
