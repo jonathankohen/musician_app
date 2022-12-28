@@ -8,7 +8,7 @@ import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 
 // Components
-import Navbar from "./components/layout/Navbar";
+import Navbar from "./components/layout/Navbar/Navbar";
 import Container from "./components/layout/Container/Container";
 import NoMatch from "./components/NoMatch";
 
@@ -18,7 +18,7 @@ function App() {
 			<Navbar />
 			<Container>
 				<Routes>
-					<Route path="/" element={<LandingPage />} />
+					<Route path="/" element={<Login />} />
 					<Route
 						path="musicians/register"
 						element={<Reg user_type="musician" />}
