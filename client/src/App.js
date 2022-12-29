@@ -31,10 +31,7 @@ function App() {
 						path="musicians/login"
 						element={<Login userType="musician" />}
 					/>
-					<Route
-						path="musicians/dashboard"
-						element={<Dashboard userType="musician" />}
-					/>
+					<Route path="dashboard" element={<Dashboard />} />
 					<Route
 						path="venues/register"
 						element={<Reg userType="venue" />}

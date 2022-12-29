@@ -62,15 +62,9 @@ export default function Reg({ userType }) {
 	};
 
 	const handleInputChange = (e) => {
-		const onlyNums = e.target.value.filter(
-			(char) => typeof char === "number",
-		);
-
-		const currVal = e.target.name === "zip" ? onlyNums : false;
-
 		setReg({
 			...reg,
-			[e.target.name]: currVal,
+			[e.target.name]: e.target.value,
 		});
 	};
 
@@ -83,7 +77,7 @@ export default function Reg({ userType }) {
 				withCredentials: true,
 			})
 			.then((res) => {
-				if (res.data.musician) {
+				if (res.data) {
 					goToDash(userType);
 				} else {
 					setErrors(res.data);

@@ -136,9 +136,9 @@ export default function RegForm({
 
 				<BSForm.Select aria-label="Please select a state">
 					<option>Please select a state</option>
-					{usStates.map((state) => {
+					{usStates.map((state, index) => {
 						return (
-							<option value={state["abbreviation"]}>
+							<option key={index} value={state["abbreviation"]}>
 								{state["name"]}
 							</option>
 						);

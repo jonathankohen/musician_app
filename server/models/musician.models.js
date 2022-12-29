@@ -3,6 +3,11 @@ const mongoose = require("mongoose"),
 
 const MusicianSchema = new mongoose.Schema(
 	{
+		type: {
+			type: String,
+			default: "musician",
+		},
+
 		firstName: {
 			type: String,
 			required: [true, "First name is required."],

@@ -8,6 +8,11 @@ module.exports = (app) => {
 
 	app.get("/api/musicians/all", authenticate, MusicianController.get_all);
 	app.get("/api/musicians/:id", authenticate, MusicianController.show_one);
+	app.get(
+		"/api/musicians/get_by_email",
+		authenticate,
+		MusicianController.get_by_email,
+	);
 	app.put("/api/musicians/edit/:id", authenticate, MusicianController.update);
 	app.put(
 		"/api/musicians/delete/:id",

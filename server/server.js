@@ -18,5 +18,6 @@ app.use(express.urlencoded({ extended: true }));
 require("./config/database.config");
 require("./routes/musician.routes")(app);
 require("./routes/venue.routes")(app);
+require("./routes/user.routes")(app);
 
 app.listen(port, () => console.log(`Listening to: http://localhost:${port}`));

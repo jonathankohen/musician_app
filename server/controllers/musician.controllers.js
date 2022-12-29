@@ -113,6 +113,12 @@ module.exports = {
 			});
 	},
 
+	get_by_email: (req, res) => {
+		Musician.findOne({ email: req.params.email })
+			.then((data) => res.json({ results: data }))
+			.catch((err) => res.json(err.errors));
+	},
+
 	show_one: (req, res) => {
 		Musician.findOne({ _id: req.params.id })
 			.then((data) => res.json({ results: data }))
